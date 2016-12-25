@@ -1,0 +1,93 @@
+.direction-grp{
+    clear: both; float: left; margin: 0 7em; text-align: center; width: 32.6em;
+}
+.debug {
+    clear: both;
+    float: left;
+    margin-top: 20px;
+    width: 46em;
+    border: 1px dotted red;
+    text-align: left;
+}
+table {
+    border-collapse:collapse;
+}
+#board td {
+    height: 5em;
+    width: 5em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+#board td span {
+    display: none;
+}
+button.direction {
+    font-size: 2em;
+    background: #ccc;
+    width: 2em;
+    height: 2em;
+}
+
+td.mov {
+    padding: 1px 20px;
+}
+
+label {
+    margin: 4px;
+}
+
+/**
+ * Green board theme
+ */
+div.cgreen {
+    float: left;
+    border: 3em solid #062601;
+}
+table.green#board tbody {
+    border: thick double #000;
+}
+.green#board tr:nth-child(odd) td:nth-child(even) {background: #7a7}
+.green#board tr:nth-child(even) td:nth-child(odd) {background: #7a7}
+
+/**
+ * Brown board theme
+ */
+div.cbrown {
+    float: left;
+    border: 3em solid #5C2D13;
+}
+table.brown#board tbody {
+    border: thick double #000;
+    background-color: #FBCC90;
+}
+.brown#board tr:nth-child(odd) td:nth-child(even) {background: #9E6327}
+.brown#board tr:nth-child(even) td:nth-child(odd) {background: #9E6327}
+
+/**
+ * Rosewood board theme
+ */
+div.crosewood {
+    float: left;
+    border: 3em solid #380D0A;
+}
+table.rosewood#board tbody {
+    border: thick double #000;
+    background-color: #F0CCAC;
+}
+.rosewood#board tr:nth-child(odd) td:nth-child(even) {background: #682A00}
+.rosewood#board tr:nth-child(even) td:nth-child(odd) {background: #682A00}
+
+/**
+ * Black board theme
+ */
+div.cblack {
+    float: left;
+    border: 3em solid #222;
+}
+table.black#board tbody {
+    border: thick double #000;
+    background-color: #E2E5D3;
+}
+.black#board tr:nth-child(odd) td:nth-child(even) {background: #535C5E}
+.black#board tr:nth-child(even) td:nth-child(odd) {background: #535C5E}

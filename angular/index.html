@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head ng-app>
+    <meta charset="utf-8">
+    <title>Chess</title>
+    <link rel="stylesheet" href="css/chess.css">
+    <link rel="stylesheet" href="css/chess_pieces_light.css">
+    <link rel="stylesheet" href="css/chess_pieces_elegant.css">
+    <link rel="stylesheet" href="css/chess_pieces_simple.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+    <script src="js/chess.js?v=15"></script>
+<script>
+function chess($scope){
+    $scope.pointer = 0;
+
+    $scope.reversi = {a: 'h', b: 'g', c: 'f', d: 'e', e: 'd', f: 'c', g: 'b', h: 'a', 
+        '-': '-', x: 'x', '?': '?', '!': '!', '+': '+', '#': '#',
+        o: 'o', R: 'R', N: 'N', B: 'B', Q: 'Q', K: 'K', O: 'O'
+    };
+    $scope.revernum = [9, 8, 7, 6, 5, 4, 3, 2, 1];
+    $scope.column_dict = {a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7};
+    $scope.rank_dict = [8, 7, 6, 5, 4, 3, 2, 1, 0];
+    $scope.row_idx = '01234567';
+
+    $scope.notation = [];
+    $scope.moved = [];
+
+    $scope.initBoard = function(){
+        $scope.board = [
+            [{p:'R',c:1}, {p:'N',c:1}, {p:'B',c:1}, {p:'Q',c:1}, {p:'K',c:1}, {p:'B',c:1}, {p:'N',c:1}, {p:'R',c:1}],
+            [{p:'o',c:1}, {p:'o',c:1}, {p:'o',c:1}, {p:'o',c:1}, {p:'o',c:1}, {p:'o',c:1}, {p:'o',c:1}, {p:'o',c:1}],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            [{p:'o',c:0}, {p:'o',c:0}, {p:'o',c:0}, {p:'o',c:0}, {p:'o',c:0}, {p:'o',c:0}, {p:'o',c:0}, {p:'o',c:0}],
+            [{p:'R',c:0}, {p:'N',c:0}, {p:'B',c:0}, {p:'Q',c:0}, {p:'K',c:0}, {p:'B',c:0}, {p:'N',c:0}, {p:'R',c:0}],
+        ];
+    }
+
+    $scope.ptheme = 'elegant';
+    $scope.btheme = 'brown';
+    $scope.animation = 1000;
+    $scope.blackOrientation = false;
+    $scope.colorOrientation = 'White';
+
+    $scope.changeOrientation = function(resetMoves){
+        var holdBoard = [],
+            rank,
+            column,
+            row;
+
+        if (typeof $scope.pgn_game === 'undefined') {
+            $scope.loadBoard();
+        }
+
+        for (rank = 7; rank >= 0; rank -= 1) {
+            row = [];
+            for (column = 7; column >= 0; column -= 1) {
+                row.push($scope.board[rank][column]);
+            }
+            holdBoard.push(row);
+        }
+
+        if ($scope.blackOrientation) {
+            $scope.colorOrientation = 'Black';
+            $scope.row_idx = '87654321';
+        } else {
+            $scope.colorOrientation = 'White';
+            $scope.row_idx = '01234567';
+        }
+
+        $scope.board = holdBoard;
+
+        if (resetMoves !== false) {
+            $scope.reorientMoves();
+        }
+    }
+
+    $scope.clearPGN = function(){
+        $scope.resetGame();
+        $scope.pointer = 0;
+        delete $scope.pgn_string;
+        delete $scope.pgn_game;
+        delete $scope.xmoves;
+    }
+
+    $scope.loadImmortalGame = function(){
+        $scope.pgn_string = assignGame();
+    }
+
+    $scope.loadBoard = function(loadSampleGame){
+        var pgn = $scope.pgn_string;
+
+        $scope.clearPGN();
+
+        if (loadSampleGame === false) {
+
+            if (pgn) {
+                $scope.pgn_string = pgn;
+            }
+            
+        } else {
+
+            if (typeof pgn === 'undefined') {
+                $scope.loadImmortalGame();
+            } else {
+                $scope.pgn_string = pgn;
+            }
+        }
+
+        if ($scope.pgn_string) {
+            $scope.pgn_game = parsePGN($scope.pgn_string);
+            $scope.xmoves = addSeparatorPGN($scope.pgn_game.moves);
+        }
+    }
+
+    $scope.reorientMoves = function(){
+        
+        var holdMoves = [],
+            len,
+            colorA,
+            colorB,
+            character,
+            x,
+            n;
+
+        len = $scope.xmoves.length;
+
+        for (x = 0; x < len; x += 1) {
+
+            colorA = "";
+            colorB = "";
+
+            /**
+             * Reorient white move
+             */
+            for (n = 0; n < $scope.xmoves[x][0].length; n += 1) {
+
+                character = $scope.xmoves[x][0][n];
+
+                if ( "12345678".indexOf( character ) >= 0) {
+                    colorA += $scope.revernum[ character ];
+                } else {
+                    colorA += $scope.reversi[ character ];
+                }
+            }
+
+            holdMoves.push( [colorA] );
+
+            /**
+             * Reorient black move
+             */
+            if (typeof $scope.xmoves[x][1] !== 'undefined') {
+
+                for (n = 0; n < $scope.xmoves[x][1].length; n += 1) {
+
+                    character = $scope.xmoves[x][1][n];
+
+                    if ( "12345678".indexOf( character ) >= 0) {
+                        colorB += $scope.revernum[ character ];
+                    } else {
+                        colorB += $scope.reversi[ character ];
+                    }
+                }
+
+                holdMoves[x].push( colorB );
+            }
+        }
+
+        $scope.xmoves = holdMoves;
+    }
+
+    $scope.resetGame = function(){
+
+        if ($scope.moved.length > 0 || typeof $scope.board === 'undefined') {
+            $scope.initBoard();
+
+            if ($scope.blackOrientation) {
+                $scope.changeOrientation(false);
+            }
+        }
+
+        $scope.autoPlay = false;
+        $scope.moved = [];
+        $scope.notation = [];
+        $scope.pointer = 0;
+    }
+
+    $scope.finishGame = function(auto){
+        if (auto === true) {
+            if (typeof $scope.xmoves === 'undefined') {
+                $scope.loadBoard();
+            }
+            $scope.autoPlay = true;
+        }
+
+        if ($scope.autoPlay) {
+            if ($scope.next() === true) {
+                setTimeout(function(){
+                    $scope.finishGame();
+                    $scope.$apply();
+                }, $scope.animation);
+            }
+        }
+    }
+
+    $scope.prev = function(){
+        var mov;
+
+        mov = $scope.moved.pop();
+        $scope.autoPlay = false;
+
+        if (mov) {
+
+            $scope._reverseMove(mov);
+            $scope.pointer -= 0.5;
+
+            if ($scope.pointer % 1 == 0) {
+                $scope.notation.pop();
+            } else {
+                delete $scope.notation[$scope.notation.length -1][1];
+            }
+        }
+    };
+
+    $scope.next = function(clicked){
+        var move,
+            move_color;
+
+        if (clicked) {
+            $scope.autoPlay = false; // Cancel auto-play
+        }
+
+        if (typeof $scope.xmoves === 'undefined') {
+            $scope.loadBoard(); // Load game
+        }
+
+        if ($scope.pointer >= $scope.xmoves.length) {
+            $scope._endOfGame(); // No more move for white, end of game
+            return false;
+        }
+
+        if ($scope.pointer % 1 == 0) {
+            /**
+             * White's move
+             */
+            move = $scope.pointer;
+            move_color = 0;
+
+        } else {
+            /**
+             * Black's move
+             */
+            move = $scope.pointer - 0.5;
+            move_color = 1;
+        }
+
+        if (typeof $scope.xmoves[move][move_color] === 'undefined') {
+            $scope._endOfGame(); // No more move for black, end of game
+            return false;
+        }
+
+        $scope._setMove(move, move_color);
+        $scope.pointer += 0.5;
+
+        return true;
+    };
+
+    $scope._endOfGame = function(){
+        var count = Math.round( $scope.moved.length / 2 );
+        alert('End of game\n\nTotal moves: ' + count + '\n\nResult: ' + $scope.pgn_game.result);
+    }
+
+    $scope._placeMove = function(moves){
+        var reversed = [],
+            mov,
+            x;
+
+        /**
+         * Loop is for maximum of two moves: casting
+         */
+        for (x = 0; x < moves.length; x += 1){
+
+            mov = moves[x];
+
+            reversed.push({
+                from_rank: mov.from_rank,
+                from_column: mov.from_column,
+                from_piece: $scope.board[mov.from_rank][mov.from_column],
+                dest_rank: mov.dest_rank,
+                dest_column: mov.dest_column,
+                dest_piece: $scope.board[mov.dest_rank][mov.dest_column],
+            });
+
+            $scope.board[ mov.dest_rank ][ mov.dest_column ] = $scope.board[ mov.from_rank ][ mov.from_column ];
+            $scope.board[ mov.from_rank ][ mov.from_column ] = "";
+        }
+
+        $scope.moved.push(reversed);
+    }
+
+    $scope._reverseMove = function(moves){
+        var x;
+
+        for (x = 0; x < moves.length; x += 1){
+            $scope.board[moves[x].from_rank][moves[x].from_column] = moves[x].from_piece;
+            $scope.board[moves[x].dest_rank][moves[x].dest_column] = moves[x].dest_piece;
+        }
+    }
+
+    $scope._setMove = function(move, move_color){
+        var move_arr,
+            from_column,
+            from_rank,
+            dest_column,
+            dest_rank,
+            rank,
+            column,
+            piece,
+            rank_loop,
+            column_loop,
+            rank_condition,
+            column_condition,
+            rank_step,
+            column_step,
+            valid_move;
+
+        from_column = null;
+        from_rank = null;
+
+        if ($scope.xmoves[move][move_color].substring(1, 2) == 'x') {
+            /**
+             * Capture move
+             */
+            move_arr = $scope.xmoves[move][move_color].split('x');
+
+            if ("abcdefgh".indexOf(move_arr[0]) >= 0){
+                /**
+                 * Pawn captures enemy
+                 */
+                piece = "o";
+                from_column = $scope.column_dict[move_arr[0]]
+
+            } else {
+                /**
+                 * Piece captures enemy
+                 */
+                piece = move_arr[0];
+            }
+        } else {
+            move_arr = $scope.xmoves[move][move_color].split('-');
+            piece = move_arr[0];
+        }
+
+        if (move_color === 0){
+            $scope.notation.push([$scope.pgn_game.moves[move][move_color]]);
+        } else {
+            $scope.notation[$scope.notation.length - 1].push($scope.pgn_game.moves[move][move_color]);
+        }
+
+        dest_column = $scope.column_dict[ move_arr[1][0] ];
+        dest_rank = $scope.rank_dict[ move_arr[1][1] ];
+
+        from_rank = 0;
+        column_loop = 7;
+        rank_loop = 7;
+        column_step = 1;
+        rank_step = 1;
+
+        rank_condition = function(){return (rank <= rank_loop);};
+        column_condition = function(){return (column <= column_loop);};
+         
+        if (piece === "o"){
+
+            /**
+             * Pawn move
+             */
+            if (from_column === null) {
+                from_column = dest_column;
+            }
+            
+            for (rank = from_rank; rank_condition(); (rank += rank_step) ){
+
+                if ($scope.board[rank][from_column].p === "o" && $scope.board[rank][from_column].c === move_color)
+                {
+                    /**
+                     * Check: pawn and color
+                     */
+                    if ($scope.blackOrientation) {
+                        if (move_color === 0) {
+                            // Black
+                            if (rank < dest_rank) {
+                                from_rank = rank;
+                            }
+                        } else {
+                            // White
+                            if (rank > dest_rank) {
+                                from_rank = rank;
+                                /**
+                                 * Apply break only for White
+                                 *  while no break for Black to get more advanced pawn in case of double pawn
+                                 */
+                                break;
+                            }
+                        }
+                    } else {
+                        if (move_color === 1) {
+                            // Black
+                            if (rank < dest_rank) {
+                                from_rank = rank;
+                            }
+                        } else {
+                            // White
+                            if (rank > dest_rank) {
+                                from_rank = rank;
+                                /**
+                                 * Apply break only for White
+                                 *  while no break for Black to get more advanced pawn in case of double pawn
+                                 */
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (typeof from_rank === 'undefined') {
+                alert('Cannot move: from_rank is undefined')
+                return;
+            }
+
+            $scope._placeMove([
+                { dest_rank: dest_rank, dest_column: dest_column, from_rank: from_rank, from_column: from_column }
+            ]);
+            return;
+
+        } else if ($scope.xmoves[move][move_color] === "O-O"){
+
+            if ($scope.blackOrientation) {
+
+                from_rank = (move_color ? 7 : 0);
+                dest_rank = (move_color ? 7 : 0);
+
+                $scope._placeMove([
+                    { dest_rank: dest_rank, dest_column: 1, from_rank: from_rank, from_column: 3 },
+                    { dest_rank: dest_rank, dest_column: 2, from_rank: from_rank, from_column: 0 }
+                ]);
+
+            } else {
+
+                from_rank = (move_color ? 0 : 7);
+                dest_rank = (move_color ? 0 : 7);
+
+                $scope._placeMove([
+                    { dest_rank: dest_rank, dest_column: 6, from_rank: from_rank, from_column: 4 },
+                    { dest_rank: dest_rank, dest_column: 5, from_rank: from_rank, from_column: 7 }
+                ]);
+            }
+            return;
+
+        } else if ($scope.xmoves[move][move_color] === "O-O-O"){
+
+            if ($scope.blackOrientation) {
+
+                from_rank = (move_color ? 7 : 0);
+                dest_rank = (move_color ? 7 : 0);
+
+                $scope._placeMove([
+                    { dest_rank: dest_rank, dest_column: 5, from_rank: from_rank, from_column: 3 },
+                    { dest_rank: dest_rank, dest_column: 4, from_rank: from_rank, from_column: 7 }
+                ]);
+
+            } else {
+                
+                from_rank = (move_color ? 0 : 7);
+                dest_rank = (move_color ? 0 : 7);
+
+                $scope._placeMove([
+                    { dest_rank: dest_rank, dest_column: 2, from_rank: from_rank, from_column: 4 },
+                    { dest_rank: dest_rank, dest_column: 3, from_rank: from_rank, from_column: 0 }
+                ]);
+            }
+            return;
+        }
+
+        /**
+         * Piece move
+         */
+        from_column = 0;
+        from_rank = 0;
+
+        if (piece.length === 2) {
+
+            if ( (from_rank = $scope.row_idx.indexOf(piece[1])) >= 0) {
+                /**
+                 * Rank was specified
+                 */
+                rank_loop = from_rank; // one loop only
+            } else {
+                from_rank = null;
+            }
+
+            if ( (from_column = "abcdefgh".indexOf(piece[1])) >= 0) {
+                /**
+                 * Column was specified
+                 */
+                column_loop = from_column; // one loop only
+            } else {
+                from_column = null;
+            }
+            
+            piece = piece[0];
+        }
+
+        for (rank = (from_rank || 0); rank_condition(); (rank += rank_step) ){
+
+            for (column = (from_column || 0); column_condition(); (column += column_step) ){
+
+                if ($scope.board[rank][column].p === piece && $scope.board[rank][column].c === move_color)
+                {
+                    if (from_rank === null) {
+                        from_rank = rank;
+                    }
+
+                    if (from_column === null) {
+                        from_column = column;
+                    }
+
+                    /**
+                     * Check: Matching piece and color
+                     */
+                    valid_move = isValidMove($scope.board, move_color, piece, rank, column, dest_rank, dest_column);
+
+                    if (valid_move) {
+                        from_rank = rank;
+                        from_column = column;
+
+                        // Exit these loops
+                        column = 999999;
+                        rank = 999999;
+                    }
+                }
+            }
+        }
+
+        if (valid_move){
+
+            if (typeof from_rank === 'undefined') {
+                alert('Cannot move: from_rank is undefined')
+                return;
+            }
+
+            $scope._placeMove([
+                { dest_rank: dest_rank, dest_column: dest_column, from_rank: from_rank, from_column: from_column }
+            ]);
+
+        } else {
+
+            $scope.autoPlay = false; // Stop auto-play
+
+            console.log({ dest_rank: dest_rank, dest_column: dest_column, from_rank: from_rank, from_column: from_column })
+
+            alert('INVALID MOVE: ' + piece + ' : ' + (from_column+1) + ':' + (from_rank+1) + ', ' + (dest_column+1) + ':' + (dest_rank+1) );
+        }
+    }
+}
+</script>
+</head>
+<body ng-controller="chess" ng-init="loadBoard(false)">
+    <div class="c{{ btheme }}">
+        <table id="board" style="float: left" class="{{ btheme }}">
+            <tbody>
+                <tr ng-repeat="rank in board">
+                    <td ng-repeat="item in rank"><div class="{{ ptheme }}{{ item.p }}{{ item.c }}"><span>{{ item.p }}</span></div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="position: absolute; margin-left: 50em">
+        <table border="1" style="float:left; margin: 0 10px;">
+            <thead>
+                <tr><th></th><th>White</th><th>Black</th></tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(index, movs) in notation">
+                    <td>{{ index + 1 }}.</td>
+                    <td class="mov" ng-repeat="mov in movs">{{ mov }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <section style="float:right">
+            <div><textarea rows="30" cols="30" ng-model="pgn_string"></textarea></div>
+            <button ng-click="loadImmortalGame()">Load "The Immortal Game 1851"</button>
+            <button ng-click="clearPGN()">clear</button>
+        </section>
+    </div>
+    <div class="direction-grp">
+        <button class="direction" ng-click="resetGame()">|&lt;</button>
+        <button class="direction" ng-click="prev()">&lt;</button>
+        <button class="direction" ng-click="next(true)">&gt;</button>
+        <button class="direction" ng-click="finishGame(true)">&gt;|</button>
+        <div>
+            <label>
+                <input type="checkbox" ng-model="blackOrientation" ng-click="changeOrientation()">{{ colorOrientation }}
+            </label>
+            <label>Animation:
+                <select ng-model="animation">
+                    <option value="10">lightning</option>
+                    <option value="250">very fast</option>
+                    <option value="500">fast</option>
+                    <option value="1000">normal</option>
+                    <option value="2000">slow</option>
+                </select>
+            </label>
+            <label>Pieces:
+                <select ng-model="ptheme">
+                    <option value="simple">simple</option>
+                    <option value="elegant">elegant</option>
+                    <option value="light">light</option>
+                </select>
+            </label>
+            <label>Board:
+                <select ng-model="btheme">
+                    <option value="green">green</option>
+                    <option value="brown">brown</option>
+                    <option value="rosewood">rosewood</option>
+                    <option value="black">black</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    <div class="debug">
+        <!-- <div>Row Idx: {{ row_idx }}</div> -->
+        <div>Pointer: {{ pointer }}</div>
+        <!-- <div>PGN Game: {{ pgn_game.moves }}</div> -->
+        <div>X Moves: {{ xmoves }}</div>
+    </div>
+</body>
+</html>

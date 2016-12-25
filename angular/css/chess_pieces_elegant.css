@@ -1,0 +1,72 @@
+.elegantR0 {
+    background:url("../pieces/elegant/White R.png") no-repeat center;
+    background-size: 42px 42px;
+    width: 5em;
+    height: 5em;
+}
+.elegantN0 {
+    background:url("../pieces/elegant/White N.png") no-repeat center;
+    background-size: 50px 50px;
+    width: 5em;
+    height: 5em;
+}
+.elegantB0 {
+    background:url("../pieces/elegant/White B.png") no-repeat center;
+    background-size: 53px 53px;
+    width: 5em;
+    height: 5em;
+}
+.elegantK0 {
+    background:url("../pieces/elegant/White K.png") no-repeat center;
+    background-size: 50px 50px;
+    width: 5em;
+    height: 5em;
+}
+.elegantQ0 {
+    background:url("../pieces/elegant/White Q.png") no-repeat center;
+    background-size: 50px 50px;
+    width: 5em;
+    height: 5em;
+}
+.eleganto0 {
+    background:url("../pieces/elegant/White P.png") no-repeat center;
+    background-size: 45px 45px;
+    width: 5em;
+    height: 5em;
+}
+.elegantR1 {
+    background:url("../pieces/elegant/Black R.png") no-repeat center;
+    background-size: 42px 42px;
+    width: 5em;
+    height: 5em;
+}
+.elegantN1 {
+    background:url("../pieces/elegant/Black N.png") no-repeat center;
+    background-size: 50px 50px;
+    width: 5em;
+    height: 5em;
+}
+.elegantB1 {
+    background:url("../pieces/elegant/Black B.png") no-repeat center;
+    background-size: 53px 53px;
+    width: 5em;
+    height: 5em;
+}
+.elegantK1 {
+    background:url("../pieces/elegant/Black K.png") no-repeat center;
+    background-size: 50px 50px;
+    width: 5em;
+    height: 5em;
+}
+.elegantQ1 {
+    background:url("../pieces/elegant/Black Q.png") no-repeat center;
+    background-size: 50px 50px;
+    width: 5em;
+    height: 5em;
+}
+.eleganto1 {
+    background:url("../pieces/elegant/Black P.png") no-repeat center;
+    background-size: 45px 45px;
+    width: 5em;
+    height: 5em;
+}

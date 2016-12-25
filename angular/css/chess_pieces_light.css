@@ -1,0 +1,72 @@
+.lightR0 {
+    background:url("../pieces/light/White R.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.lightN0 {
+    background:url("../pieces/light/White N.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.lightB0 {
+    background:url("../pieces/light/White B.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.lightK0 {
+    background:url("../pieces/light/White K.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.lightQ0 {
+    background:url("../pieces/light/White Q.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.lighto0 {
+    background:url("../pieces/light/White P.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.lightR1 {
+    background:url("../pieces/light/Black R.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.lightN1 {
+    background:url("../pieces/light/Black N.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.lightB1 {
+    background:url("../pieces/light/Black B.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.lightK1 {
+    background:url("../pieces/light/Black K.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.lightQ1 {
+    background:url("../pieces/light/Black Q.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.lighto1 {
+    background:url("../pieces/light/Black P.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}

@@ -1,0 +1,72 @@
+.simpleR0 {
+    background:url("../pieces/simple/White R.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.simpleN0 {
+    background:url("../pieces/simple/White N.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.simpleB0 {
+    background:url("../pieces/simple/White B.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.simpleK0 {
+    background:url("../pieces/simple/White K.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.simpleQ0 {
+    background:url("../pieces/simple/White Q.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.simpleo0 {
+    background:url("../pieces/simple/White P.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.simpleR1 {
+    background:url("../pieces/simple/Black R.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.simpleN1 {
+    background:url("../pieces/simple/Black N.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.simpleB1 {
+    background:url("../pieces/simple/Black B.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.simpleK1 {
+    background:url("../pieces/simple/Black K.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.simpleQ1 {
+    background:url("../pieces/simple/Black Q.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}
+.simpleo1 {
+    background:url("../pieces/simple/Black P.png") no-repeat center;
+    background-size: 60px 60px;
+    width: 5em;
+    height: 5em;
+}

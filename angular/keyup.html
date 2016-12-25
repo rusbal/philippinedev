@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+<script>
+angular.module('modApp', []).directive('ngOnkeyup', function() {
+    return {
+        restrict: 'A',
+        scope: {
+            func: '&ngOnkeyup'
+        },
+        link: function( scope, elem, attrs ) {
+            elem.bind('keyup', scope.func);
+        }
+    };
+});
+function ctrlKeyup($scope) {
+    $scope.keyup = function() {
+        alert('key up fired');
+    };
+}
+</script>
+</head>
+<body>
+    Sample: <input type="text" name="sample" value="">
+    <div ng-app="modApp">
+        <div ng-controller="ctrlKeyup">
+            Keyup: <input ng-onkeyup="keyup()"/>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="rayApp">
+    <meta charset="utf-8">
+    <title>s1</title>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+<script>
+function Main($scope) {
+    $scope.items = [{
+        name: 'First',
+        description: 'Something...'
+    }, {
+        name: 'Second',
+        description: ''
+    }];
+    
+    $scope.add = function(id) {
+        $scope.items.push({name: $scope.items[$scope.items.length-1].description});
+    };
+
+    $scope.delete = function(id) {
+        $scope.items.splice(id, 1);
+    }
+}
+
+angular.module('rayApp', []).directive('initFocus', function() {
+    var timer;
+    
+    return function(scope, elm, attr) {
+        if (timer) clearTimeout(timer);
+        
+        timer = setTimeout(function() {
+            elm[0].focus();
+            console.log('focus', elm);
+        }, 0);
+    };
+});
+</script>
+</head>
+<body ng-controller="Main">
+    <form class="form-horizontal">
+      <div ng-repeat="i in items" class="control-group">
+        <label class="control-label" for="desc-{{ $index }}">{{i.name}}</label>
+        <div class="controls">
+            <div class="input-append">
+                <input ng-model="i.description" id="desc-{{ $index }}" type="text" placeholder="Type here..." init-focus>
+                <input type="button" class="btn" ng-click="delete($index)" value="x">
+            </div>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+            <button ng-click="add($index)" class="btn btn-small btn-primary" type="button">Add</button>
+        </div>
+      </div>
+    </form>
+</body>
+</html>
