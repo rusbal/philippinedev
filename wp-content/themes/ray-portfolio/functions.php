@@ -5,6 +5,9 @@
  *
  */
 
+// Raymond
+add_image_size( 'width-1260', 1260, 9999);
+
 // loading the necessary elements
 get_template_part( 'comments', 'template' );
 get_template_part( 'theme', 'customizer' );

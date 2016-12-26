@@ -28,9 +28,7 @@
                     global $dynamic_featured_image;
                     $featured_images = $dynamic_featured_image->get_featured_images();
 
-                    foreach ($featured_images as $feature_image) {
-                        echo '<img src="' . $feature_image['full'] . '">';
-                    }
+                    echo wp_get_attachment_image($featured_images[0]['attachment_id'], 'width-1260');
                 }
             endif;
             ?>
