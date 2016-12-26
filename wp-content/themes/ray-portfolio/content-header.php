@@ -28,7 +28,12 @@
                     global $dynamic_featured_image;
                     $featured_images = $dynamic_featured_image->get_featured_images();
 
-                    echo wp_get_attachment_image($featured_images[0]['attachment_id'], 'width-1260');
+                    if (wp_check_filetype($featured_images[0]['full'])['type'] == 'image/png') {
+                        echo '<img src="' . $featured_images[0]['full'] . '">';
+                    } else {
+                        echo wp_get_attachment_image($featured_images[0]['attachment_id'], 'width-1260');
+                    }
+
                 }
             endif;
             ?>
