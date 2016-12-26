@@ -1159,7 +1159,7 @@ ul.nav-menu ul a,
 }
 
 .entry-title a {
-	color: #363636;
+	color: #000;
 	display: block;
 	position: relative;
 }
@@ -1840,7 +1840,7 @@ footer.entry-meta > .edit-link {
 }
 
 .post-preview {
-	background: #fff;
+	background: #C9ECFF;
 	height: 100%;
 	position: absolute;
 	width: 100%;
@@ -1995,14 +1995,14 @@ footer.entry-meta > .edit-link {
 }
 
 .article-helper .entry-summary > a {
-	color: #777;
+	color: #000;
 	display: block;
 }
 
 .article-helper .entry-summary > a:active,
 .article-helper .entry-summary > a:focus,
 .article-helper .entry-summary > a:hover {
-	color: #aaa;
+	color: #333;
 }
 
 
