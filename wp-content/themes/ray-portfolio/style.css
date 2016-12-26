@@ -57,6 +57,9 @@ body {
 	font-weight: 400;
 	line-height: 1.8;
 }
+a {
+	color: #3097d1;
+}
 a,
 .social-menu li:before  {
 	text-decoration: none;
@@ -1840,11 +1843,19 @@ footer.entry-meta > .edit-link {
 }
 
 .post-preview {
-	background: #C9ECFF;
+	background: rgba(0,0,0, 0.75);
+	padding: 0 !important;
 	height: 100%;
 	position: absolute;
 	width: 100%;
 	z-index: 1;
+}
+
+.post-preview-contains {
+	margin-top: 172px;
+	background: rgba(219, 249, 255, 1);
+	padding: 30px;
+	height: 1000px;
 }
 
 .post-preview[data-url] {
@@ -2799,6 +2810,10 @@ select {
 #gk-copyrights {
 	padding: 0;
 	text-align: center;
+}
+
+#gk-copyrights a {
+	color: #ccc;
 }
 
 #gk-copyrights > p {
