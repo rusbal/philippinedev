@@ -1,5 +1,5 @@
 /*
-Theme Name: GK-Ray Portfolio
+Theme Name: GK Portfolio
 Theme URI: https://www.gavick.com/wordpress-themes/portfolio,174.html
 Description: If you’re a photographer, designer or creative blogger, you know how much of an impact strong visuals can have. It’s not enough to just write about your skills, or talk about what works in design; it has to be seen to be understood. With the clean, elegant design offered by this free Portfolio WordPress theme that puts all the emphasis on your creative work, you can craft an alluring, attractive and relaxed website that echoes the qualities that you put into your writing and images. Reveal and hover animations provide a dynamic backdrop without intrusion, and the dialed-back layout keeps attention focused on your content. Provide your blog or portfolio site with the perfect foundation with Porfolio...
 License: GNU GPL v.2.0
@@ -191,7 +191,7 @@ td {
 }
 
 .screen-reader-text:focus {
-	background-color: #000000;
+	background-color: #f1f1f1;
 	border-radius: 3px;
 	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
 	clip: auto !important;
@@ -427,7 +427,7 @@ img.wp-smiley,
  */
  
 .site-main {
-	background-color: #000000;
+	background-color: #f1f1f1;
 	background-size: cover;
 	background-repeat: no-repeat;
 	width: 100%;
@@ -653,8 +653,6 @@ img.wp-smiley,
 	color: #000;
 	min-height: 64px;
 	text-align: center;
-	border-bottom: 8px solid #3097d1;
-	padding-bottom: 10px;
 }
 
 .site-header .home-link {
