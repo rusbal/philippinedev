@@ -94,7 +94,7 @@ function portfolio_customizer_css() {
         .comment-meta a:hover,
         .social-menu li:hover:before,
         .social-menu-topbar li:hover:before,
-        .entry-title a:hover {
+        /*.entry-title a:hover*/ {
         	color: <?php echo $primary_color; ?>;
         }
         button,

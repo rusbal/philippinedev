@@ -89,7 +89,7 @@ function portfolio_customizer_css() {
         .paging-navigation a:hover,
         .comment-meta a:hover,
         .social-menu li:hover:before,
-        .entry-title a:hover {
+        /*.entry-title a:hover*/ {
         	color: <?php echo $primary_color; ?>;
         }
         button,
