@@ -15,7 +15,7 @@
 	
 	wp.customize('background_color', function(value) {
 	    value.bind( function( to ) {
-	    	to = to ? to : '#f1f1f1';
+	    	to = to ? to : '#000000';
 	    	// set colors:
 	    	var new_css = 'body.custom-background #main {background: '+to+';}';
 	    	if($(document).find('#portfolio-new-css-2').length) {

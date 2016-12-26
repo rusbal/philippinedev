@@ -102,7 +102,7 @@ if(!function_exists('portfolio_setup')) {
 		
 		// Support for custom background
 		$args = array(
-			'default-color' => 'f1f1f1',
+			'default-color' => '000000',
 			'wp-head-callback' => 'portfolio_custom_background_callback'
 		);
 		add_theme_support('custom-background', $args);
