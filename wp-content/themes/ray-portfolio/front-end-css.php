@@ -39,7 +39,7 @@ function portfolio_customizer_css() {
     	.search-no-results .page-content {
     		width: <?php
     		$portfolio_content_width = get_theme_mod('portfolio_content_width', 700);
-    		echo $portfolio_content_width ? $portfolio_content_width . 'px;' : '100%;';
+    		echo (int) $portfolio_content_width ? $portfolio_content_width . 'px;' : '100%;';
     		?>
     	}
     
