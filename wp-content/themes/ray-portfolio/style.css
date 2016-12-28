@@ -1960,7 +1960,7 @@ footer.entry-meta > .edit-link {
 
 .article-helper .post-image {
 	background-size: cover;
-	background-position: 50% 50%;
+	background-position: 50% 0;
 	background-repeat: no-repeat;
 	display: block;
 	height: 100%;
