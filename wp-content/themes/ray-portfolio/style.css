@@ -556,7 +556,7 @@ img.wp-smiley,
 }
 
 #content .tags-links:after {
-	border-top: 1px solid #333;
+	/*border-top: 1px solid #333;*/
 	content: "";
 	display: block;
 	margin: 0 -100px;
@@ -572,7 +572,7 @@ img.wp-smiley,
 }
 
 #content .tags-links a {
-	color: #ddd;
+	color: #ccc;
 }
 
 #content .tags-links:before {
@@ -1936,7 +1936,7 @@ footer.entry-meta > .edit-link {
 }
 
 #content .article-helper .tags-links {
-	background: rgba(0, 0, 0, 0.75);
+	background: rgba(0, 0, 0, 0.8);
 	border-top: 0;
 	bottom: 0;
 	color: #b5b5b5;
