@@ -222,7 +222,7 @@ if(!function_exists('portfolio_styles')) {
 		wp_enqueue_style('portfolio-font-awesome', get_template_directory_uri() . '/css/font.awesome.css', false, '4.0.3');
 	
 		// Loads our main stylesheet.
-		wp_enqueue_style('portfolio-style', get_stylesheet_uri(), [],'1.2');
+		wp_enqueue_style('portfolio-style', get_stylesheet_uri(), [],'1.3');
 		
 		// Loads the Internet Explorer specific stylesheet.
 		wp_enqueue_style('portfolio-ie8', get_template_directory_uri() . '/css/ie8.css', array('portfolio-style'));
