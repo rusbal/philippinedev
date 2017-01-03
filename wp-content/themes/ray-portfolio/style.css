@@ -556,7 +556,7 @@ img.wp-smiley,
 }
 
 #content .tags-links:after {
-	border-top: 1px solid #e5e5e5;
+	border-top: 1px solid #333;
 	content: "";
 	display: block;
 	margin: 0 -100px;
@@ -572,7 +572,7 @@ img.wp-smiley,
 }
 
 #content .tags-links a {
-	color: #777;
+	color: #ddd;
 }
 
 #content .tags-links:before {
@@ -1878,7 +1878,7 @@ footer.entry-meta > .edit-link {
 }
 
 .article-helper.article-hover .post-preview.animation-slide-up {
-	top: 0;
+	top: -8%;
 }
 
 .post-preview.animation-slide-down {
@@ -1936,7 +1936,7 @@ footer.entry-meta > .edit-link {
 }
 
 #content .article-helper .tags-links {
-	background: #fff;
+	background: rgba(0, 0, 0, 0.75);
 	border-top: 0;
 	bottom: 0;
 	color: #b5b5b5;
